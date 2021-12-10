@@ -1,0 +1,16 @@
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\StudentMgtSystem.exe
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\StudentMgtSystem.deps.json
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\StudentMgtSystem.runtimeconfig.json
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\StudentMgtSystem.runtimeconfig.dev.json
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\StudentMgtSystem.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\ref\StudentMgtSystem.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\StudentMgtSystem.pdb
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem.csprojAssemblyReference.cache
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem.AssemblyInfoInputs.cache
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem.AssemblyInfo.cs
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem.csproj.CoreCompileInputs.cache
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\ref\StudentMgtSystem.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem.pdb
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem.genruntimeconfig.cache
