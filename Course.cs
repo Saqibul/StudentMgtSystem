@@ -8,5 +8,7 @@ namespace StudentMgtSystem
 {
     class Course
     {
+        string courseID, courseName, instructorName;
+        int noOfCredits;
     }
 }

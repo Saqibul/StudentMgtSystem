@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace StudentMgtSystem
-{
+{   
     class Semester
     {
+        string semCode, year;
     }
 }

@@ -1,21 +1,40 @@
 using System;
+using System.Collections.Generic;
 
 namespace StudentMgtSystem
 {
     class Student
     {
-        int studentId;
-        string name;
+        string firstName, middleName, lastName, studentId;
 
-        public Student(int id,string name) {
-            this.studentId = id;
-            this.name = name;
+        enum dept { 
+            ComputerScience,
+            BBA,
+            English
+        }
+        
+        enum degree { 
+            BSC,
+            BBA,
+            BA,
+            MSC,
+            MBA,
+            MA
         }
 
-        public string Name
-        {
-            get { return name; }
-            set { name = value;  }
-        }
+        List<string> semestersAttended;
+
+        List<string> coursesPerSem;
+
+        //public Student(int id,string name) {
+        //    this.studentId = id;
+        //    this.name = name;
+        //}
+
+        //public string Name
+        //{
+        //    get { return name; }
+        //    set { name = value;  }
+        //}
     }
 }
