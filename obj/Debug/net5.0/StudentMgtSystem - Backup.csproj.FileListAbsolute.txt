@@ -1,0 +1,32 @@
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\StudentMgtSystem - Backup.exe
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\StudentMgtSystem - Backup.deps.json
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\StudentMgtSystem - Backup.runtimeconfig.json
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\StudentMgtSystem - Backup.runtimeconfig.dev.json
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\StudentMgtSystem - Backup.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\ref\StudentMgtSystem - Backup.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\StudentMgtSystem - Backup.pdb
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\Grpc.Core.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\Grpc.Core.Api.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\System.Web.Mvc.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\System.Web.Razor.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\System.Web.Helpers.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\System.Web.WebPages.Deployment.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\System.Web.WebPages.Razor.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\System.Web.WebPages.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\Newtonsoft.Json.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\runtimes\linux-arm64\native\libgrpc_csharp_ext.arm64.so
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\runtimes\linux-x64\native\libgrpc_csharp_ext.x64.so
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\runtimes\osx-x64\native\libgrpc_csharp_ext.x64.dylib
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\runtimes\win-x64\native\grpc_csharp_ext.x64.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\bin\Debug\net5.0\runtimes\win-x86\native\grpc_csharp_ext.x86.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem - Backup.csprojAssemblyReference.cache
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem - Backup.GeneratedMSBuildEditorConfig.editorconfig
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem - Backup.AssemblyInfoInputs.cache
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem - Backup.AssemblyInfo.cs
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem - Backup.csproj.CoreCompileInputs.cache
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem - Backup.csproj.CopyComplete
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem - Backup.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\ref\StudentMgtSystem - Backup.dll
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem - Backup.pdb
+D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\obj\Debug\net5.0\StudentMgtSystem - Backup.genruntimeconfig.cache
