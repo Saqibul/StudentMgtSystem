@@ -1,3 +1,1 @@
-{"ID":"S01","First":"Mohammad","Mid":"Saqibul","Last":"Alam","Dept":1,"Degree":1,"Deg":1,"Dep":1}
-{"ID":"S02","First":"Mohammad","Mid":"Ajmain","Last":"Alam","Dept":2,"Degree":1,"Deg":1,"Dep":2}
-{"ID":"S03","First":"Kawser","Mid":"Ibna","Last":"Raihan","Dept":3,"Degree":1,"Deg":1,"Dep":3}
+[{"ID":"S01","First":"Mohammad","Mid":"Saqibul","Last":"Alam","Dept":1,"Degree":1,"Deg":1,"Dep":1},{"ID":"S02","First":"Mohammad","Mid":"Ajmain","Last":"Alam","Dept":2,"Degree":1,"Deg":1,"Dep":2},{"ID":"S05","First":"Ahmed","Mid":"Fahim","Last":"Khan","Dept":3,"Degree":6,"Deg":6,"Dep":3}]

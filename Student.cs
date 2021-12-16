@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Web.Mvc;
 
 
@@ -43,30 +44,59 @@ namespace StudentMgtSystem
             string fileName = "students.json";
             List<Student> lst = new List<Student>();
             string read = null;
-            if (System.IO.File.Exists(pathString))
-            { 
+
+
+            string x = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            Console.WriteLine(x);
+
+            var toAdd = "";
+
+            if (System.IO.File.Exists(pathString)) // check if there is a students.json file.
+            {
                 StreamReader r = new StreamReader(pathString);
                 read = r.ReadToEnd();
+                Console.WriteLine("Reading :  "+read);
+                r.Close();
                 //Console.WriteLine("There is already a file");
-                //lst = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Student>>(read);
-                r.Close();
-            }
-            else {
-                //Console.WriteLine("Created Json File");
-                FileStream r = File.Create(pathString);
-                r.Close();
+                if (read.Length > 2)
+                {
+                    lst = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Student>>(read);
+                    foreach (Student i in lst)
+                    {
+                        if (obj.ID == i.ID)
+                        {
+                            Console.WriteLine("User with the same ID already exists");
+                            return;
+                        }
+                    }
+                    toAdd = read.Substring(0 , read.Length - 1)  + "," + x + "]"; // string to be contatenated
+                    Console.WriteLine(toAdd + " This is to be added");
+                }
+                else {
+                    toAdd = read.Substring(0 , read.Length - 1) + x + "]"; // string to be contatenated
+                    Console.WriteLine(toAdd + " This is to be added");
+                }
+
+                
+
+                //string data = File.ReadAllText(pathString);
+                //Console.WriteLine(data);
             }
 
-
+            Console.WriteLine("Adding " + toAdd);
+            StreamWriter fs = new StreamWriter(pathString);
+            fs.Write(toAdd);
+            fs.Close();
+            
             //if (!System.IO.File.Exists(pathString))
             //{
 
-            StreamWriter fs = new StreamWriter(pathString,true);
-            lst.Add(obj);
-            string myString = JsonConvert.SerializeObject(obj);
-            //string myString = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
-            fs.WriteLine(myString);
-            fs.Close();
+            //StreamWriter fs = new StreamWriter(pathString,true);
+            //lst.Add(obj);
+            //string myString = JsonConvert.SerializeObject(obj);
+            ////string myString = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            //fs.WriteLine(myString);
+            //fs.Close();
 
 
             //}
@@ -77,6 +107,16 @@ namespace StudentMgtSystem
             //    lst = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Student>>(read);
             //    r.Close();
             //}
+
+            
+
+
+            //FileStream r_ = File.Create(pathString);
+            //byte[] bdata = Encoding.Default.GetBytes(toAdd);
+            //r_.Write(bdata, 0, bdata.Length);
+            //r_.Close();
+
+
             //if (lst == null)
             //{
             //    List<Student> _data = new List<Student>();
@@ -116,32 +156,32 @@ namespace StudentMgtSystem
 
         public string ID
         {
-            get { return studentId; }
+            get { return this.studentId; }
             set { this.studentId = value; }
         }
         public string First
         {
-            get { return firstName; }
+            get { return this.firstName; }
             set { this.firstName = value; }
         }
         public string Mid
         {
-            get { return middleName; }
+            get { return this.middleName; }
             set { this.middleName = value; }
         }
         public string Last
         {
-            get { return lastName; }
+            get { return this.lastName; }
             set { this.lastName = value; }
         }
         public int Dept
         {
-            get { return depart; }
+            get { return this.depart; }
             set { this.depart = value; }
         }
         public int Degree
         {
-            get { return deg; }
+            get { return this.deg; }
             set { this.deg = value; }
         }
         public degree Deg
