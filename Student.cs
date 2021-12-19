@@ -47,7 +47,7 @@ namespace StudentMgtSystem
 
 
             string x = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
-            Console.WriteLine(x);
+           // Console.WriteLine(x);
 
             var toAdd = "";
 
@@ -55,7 +55,7 @@ namespace StudentMgtSystem
             {
                 StreamReader r = new StreamReader(pathString);
                 read = r.ReadToEnd();
-                Console.WriteLine("Reading :  "+read);
+                //Console.WriteLine("Reading :  "+read);
                 r.Close();
                 //Console.WriteLine("There is already a file");
                 if (read.Length > 2)
@@ -70,11 +70,11 @@ namespace StudentMgtSystem
                         }
                     }
                     toAdd = read.Substring(0 , read.Length - 1)  + "," + x + "]"; // string to be contatenated
-                    Console.WriteLine(toAdd + " This is to be added");
+                    //Console.WriteLine(toAdd + " This is to be added");
                 }
                 else {
                     toAdd = read.Substring(0 , read.Length - 1) + x + "]"; // string to be contatenated
-                    Console.WriteLine(toAdd + " This is to be added");
+                    //Console.WriteLine(toAdd + " This is to be added");
                 }
 
                 
