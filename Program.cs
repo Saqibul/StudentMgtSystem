@@ -22,45 +22,147 @@ namespace StudentMgtSystem
 
            
             LoadJson();
-            //Console.WriteLine("----------------------------------");
-            Student s1 = new Student("S01", "Mohammad", "Saqibul", "Alam", 1, 1);
-            LoadJson();
-            Student s2 = new Student("S02", "Mohammad", "Ajmain", "Alam", 2, 1);
-            LoadJson();
-            //Student s3 = new Student("S03", "Kawser", "Ibna", "Raihan", 3, 1);
 
-            //LoadJson();
-
-            //Console.WriteLine("\nWhat would you like to do \n1)Add new Student \n2)View Student details \n3)Delete Student");
-            //string firstChoice = Console.ReadLine();
-
-            //if (firstChoice == "1")
-            //{
-            //    addStudent();
-            //}
-            //else if (firstChoice == "2")
-            //{
-            //    Console.WriteLine("Please enter the ID of the user you would like to see");
-            //    string id = Console.ReadLine();
-            //    getUser(id);
-            //}
-            //else if (firstChoice == "3")
-            //{
-            //    Console.WriteLine("Please enter the ID of the user you would like to see");
-            //    string id = Console.ReadLine();
-            //    deleteUser(id);
-            //}
-            //else {
-            //    Console.WriteLine("Not a valid option!");
-            //}
-            deleteUser("S01");
+            Console.WriteLine("----------------------------------");
+            Student s1 = new Student("S01", "Mohammad", "Saqibul", "Alam", 1, 1, "Summer 2017");
             LoadJson();
-            Student s3 = new Student("S03", "Kawser", "Ibna", "Raihan", 3, 1);
+            Student s2 = new Student("S02", "Mohammad", "Ajmain", "Alam", 2, 1, "Spring 2017");
+            LoadJson();
+            Student s3 = new Student("S03", "Kawser", "Ibna", "Raihan", 3, 1, "Summer 2017");
 
             LoadJson();
 
+            Console.WriteLine("\nWhat would you like to do \n1)Add new Student \n2)View Student details \n3)Delete Student \n4)Add Semester");
+            string firstChoice = Console.ReadLine();
+
+            if (firstChoice == "1")
+            {
+                addStudent();
+            }
+            else if (firstChoice == "2")
+            {
+                Console.WriteLine("Please enter the ID of the user you would like to see");
+                string id = Console.ReadLine();
+                getUser(id);
+            }
+            else if (firstChoice == "3")
+            {
+                Console.WriteLine("Please enter the ID of the user you would like to see");
+                string id = Console.ReadLine();
+                deleteUser(id);
+                LoadJson();
+            }
+            else if (firstChoice == "4") {
+                Console.WriteLine("Please select the ID of the student you would like add a semester to");
+                string id = Console.ReadLine();
+                addSemester(id);
+            }
+            else
+            {
+                Console.WriteLine("Not a valid option!");
+            }
+
+            Course c1 = new Course("CSE321","Operating Systems","ARF",3);
+            Course c2 = new Course("CSE221","Algorithms","MMM",3);
+            Course c3 = new Course("CSE421","Networking Systems","SKZ",3);
+
+            showCourses();
 
         }
+
+        public static void addSemester(string id) {
+            Student s = getUserSemester(id);//get student by id
+
+            if (s == null) {
+                return;
+            }
+
+            Console.WriteLine("Please enter the semester code");
+            string semCode = Console.ReadLine();
+
+            Console.WriteLine("Please enter the semester year");
+            string semYear = Console.ReadLine();
+
+            Semester newSem = new Semester(semCode,semYear);//create semester object using the user inputs
+            Console.WriteLine(newSem.SemCode + newSem.Year);
+
+            Dictionary<Semester, List<Course>> semCourseDict = s.ListofSem; // get the semester information of the student as a dictionary
+
+            List<Course> currentSemCourse = new List<Course>();// create an empty list for current semester course
+
+            if (semCourseDict.ContainsKey(newSem))
+            {
+                currentSemCourse = semCourseDict[newSem];//if there are already existing courses in the semester, retrieve it
+            }
+
+            showCourses();
+
+            Console.WriteLine("Please write the Course Code that you would like to add to the student");
+            string code = Console.ReadLine();
+
+            Course courseToAdd = getCourse(code);//get course to add to dictionary
+            if (currentSemCourse.Contains(courseToAdd))//check if the course already exists in the list
+            {
+                Console.WriteLine("The course is already enrolled");
+                return;
+            }
+
+            currentSemCourse.Add(courseToAdd);
+            //semCourseDict[newSem] = currentSemCourse;
+            semCourseDict.Add(newSem,currentSemCourse);
+            s.ListofSem = semCourseDict;
+
+            foreach (KeyValuePair<Semester, List<Course>> entry in semCourseDict) {
+                Console.WriteLine("Course for " + entry.Key.SemCode + " are");
+                foreach (Course c in entry.Value) {
+                    Console.WriteLine(c.CID + "(" + c.CName + ")");
+                } 
+            }
+            //Console.WriteLine("The courses that " + s.First + " " + s.Mid + " " + s.Last + " is enrolled in " +semCode +" are: ");
+            //showCoursesinSemester(s);
+
+
+            
+
+        }
+
+        public static Course? getCourse(string code)
+        {
+            string fileName = "courses.json";
+            List<Course> ls = new List<Course>();
+            string read = null;
+            if (System.IO.File.Exists(fileName))
+            {
+                StreamReader r = new StreamReader(fileName);
+                read = r.ReadToEnd();
+                r.Close();
+                if (read.Length > 5)
+                {
+                    ls = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Course>>(read);
+                    foreach (Course c in ls)
+                    {
+                        if (c.CName == code) {
+                            return c;
+                        }
+                    }
+                    return null;
+                }
+                else
+                {
+                    Console.WriteLine("No courses at the moment");
+                    StreamReader r_ = new StreamReader(fileName);
+                    read = r_.ReadToEnd();
+                    Console.WriteLine(read.Length);
+                    r_.Close();
+                    return null;
+                }
+            }
+            else {
+                Console.WriteLine("No such course");
+                return null;
+            }
+        }
+
         public static void addStudent() {
             string fName, mName, lName, sID, jBatch;
             int dept, degree;
@@ -76,16 +178,25 @@ namespace StudentMgtSystem
             jBatch = Console.ReadLine();
             Console.WriteLine("Please select the number that corresponds to your department:\n1) Computer Science\n2) BBA\n3) English ");
             dept = int.Parse(Console.ReadLine());
+            if (dept != 1 | dept != 2 | dept != 3) {
+                Console.WriteLine("Not a valid Input!");
+                return;
+            }
             Console.WriteLine("Please select the number that corresponds to your degree:\n1) BSC\n2) BBA\n3) BS\n4) MSC\n5) MBA\n6) MA ");
             degree = int.Parse(Console.ReadLine());
+            if (degree != 1 | degree != 2 | degree != 3 | degree != 4 | degree != 5 | degree != 6)
+            {
+                Console.WriteLine("Not a valid Input!");
+                return;
+            }
 
-            Student st = new Student(sID,fName,mName,lName,dept,degree);
+            Student st = new Student(sID,fName,mName,lName,dept,degree,jBatch);
         }
 
         public static void getUser(string id) {
 
 
-            string pathString = @"D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\students.json";
+            string pathString = "students.json";
             string fileName = "students.json";
             List<Student> lst = new List<Student>();
             string read = null;
@@ -103,7 +214,7 @@ namespace StudentMgtSystem
                     {
                         if (id == i.ID)
                         {
-                            Console.WriteLine(i.First + " " + i.Mid + " " + i.Last + " is pursuing " + i.Deg + " in " + i.Dep); 
+                            Console.WriteLine(i.First + " " + i.Mid + " " + i.Last + " is pursuing " + i.Deg + " in " + i.Dep + ". They joined in " + i.Batch); 
                             return;
                         }
                     }
@@ -115,11 +226,51 @@ namespace StudentMgtSystem
             }
         }
 
+
+        public static Student? getUserSemester(string id)
+        {
+
+
+            string pathString = "students.json";
+            string fileName = "students.json";
+            List<Student> lst = new List<Student>();
+            string read = null;
+
+            if (System.IO.File.Exists(pathString)) // check if there is a students.json file.
+            {
+                StreamReader r = new StreamReader(pathString);
+                read = r.ReadToEnd();
+                //Console.WriteLine("Reading :  " + read);
+                r.Close();
+                if (read.Length > 2)
+                {
+                    lst = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Student>>(read);
+                    foreach (Student i in lst)
+                    {
+                        if (id == i.ID)
+                        {
+                            //Console.WriteLine(i.First + " " + i.Mid + " " + i.Last + " is pursuing " + i.Deg + " in " + i.Dep + ". They joined in " + i.Batch);
+                            return i;
+                        }
+                    }
+                    Console.WriteLine("No student with the given ID exists");
+                    return null;
+                }
+                return null;
+            }
+            else
+            {
+                Console.WriteLine("There are no students at the moment");
+                return null;
+            }
+        }
+
+
         public static void deleteUser(string id) {
 
             Console.WriteLine("User to be deleted is " + id);
 
-            string pathString = @"D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\students.json";
+            string pathString = "students.json";
             string fileName = "students.json";
             List<Student> lst = new List<Student>();
             string read = null;
@@ -174,13 +325,13 @@ namespace StudentMgtSystem
         }
 
         public static void LoadJson() {
-            string pathString = @"D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\students.json";
+            Console.WriteLine("---------------------STUDENTS----------------------");
             string fileName = "students.json";
             List<Student> ls = new List<Student>();
             string read = null;
-            if (System.IO.File.Exists(pathString))
+            if (System.IO.File.Exists(fileName))
             {
-                StreamReader r = new StreamReader(pathString);
+                StreamReader r = new StreamReader(fileName);
                 read = r.ReadToEnd();
                 r.Close();
                 if (read.Length > 5)
@@ -196,7 +347,7 @@ namespace StudentMgtSystem
                 else
                 {
                     Console.WriteLine("No students at the moment");
-                    StreamReader r_ = new StreamReader(pathString);
+                    StreamReader r_ = new StreamReader(fileName);
                     read = r_.ReadToEnd();
                     Console.WriteLine(read.Length);
                     r_.Close();
@@ -205,17 +356,83 @@ namespace StudentMgtSystem
             }
             else {
                 Console.WriteLine("Created Json File");
-                FileStream _r = File.Create(pathString);
+                FileStream _r = File.Create(fileName);
                 byte[] bdata = Encoding.Default.GetBytes("[]");
                 _r.Write(bdata, 0, bdata.Length);
+                _r.Close();
                 Console.WriteLine("No students at the moment");
-                StreamReader r_ = new StreamReader(pathString);
+                StreamReader r_ = new StreamReader(fileName);
                 read = r_.ReadToEnd();
                 Console.WriteLine(read);
                 r_.Close();
-                _r.Close();
+                
             }
             Console.WriteLine("----------------End of LoadJson------------------------");
+        }
+
+        public static void showCourses() {
+            Console.WriteLine("---------------------COURSES----------------------");
+            string fileName = "courses.json";
+            List<Course> ls = new List<Course>();
+            string read = null;
+            if (System.IO.File.Exists(fileName))
+            {
+                StreamReader r = new StreamReader(fileName);
+                read = r.ReadToEnd();
+                r.Close();
+                if (read.Length > 5)
+                {
+                    //Console.WriteLine("There is already a file");
+                    ls = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Course>>(read);
+                    Console.WriteLine("The available courses are ");
+                    foreach (Course c in ls)
+                    {
+                        Console.WriteLine(c.CID + " (" + c.CName + ") is taught by " + c.InstrName + ". It has " + c.Creds + " credits");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No courses at the moment");
+                    StreamReader r_ = new StreamReader(fileName);
+                    read = r_.ReadToEnd();
+                    Console.WriteLine(read.Length);
+                    r_.Close();
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("Created Json File");
+                FileStream _r = File.Create(fileName);
+                byte[] bdata = Encoding.Default.GetBytes("[]");
+                _r.Write(bdata, 0, bdata.Length);
+                _r.Close();
+                Console.WriteLine("No courses at the moment");
+                StreamReader r_ = new StreamReader(fileName);
+                read = r_.ReadToEnd();
+                Console.WriteLine(read);
+                r_.Close();
+
+            }
+            Console.WriteLine("----------------End of ShowCourse------------------------");
+        }
+
+        public static void showCoursesinSemester(Student s)
+        {
+            Dictionary<Semester, List<Course>> c = s.ListofSem;
+
+
+            foreach (KeyValuePair<Semester, List<Course>> entry in c)
+            {
+                Console.WriteLine("The courses for " + entry.Key.SemCode + " are: ");
+                if(entry.Value != null)
+                {
+                    foreach (Course ls in entry.Value) {
+                        Console.WriteLine(ls.CID + "(" + ls.CName + ")");
+                    }
+                }
+                
+            }
         }
     }
 }

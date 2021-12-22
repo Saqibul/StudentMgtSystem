@@ -31,23 +31,21 @@ namespace StudentMgtSystem
             MA
         }
 
-        List<string> semestersAttended;
+        Dictionary<Semester, List<Course>> semestersAttended;
 
-        List<string> coursesPerSem;
 
         public static List<Student> allStudents = new List<Student>();
 
         
         public void addToJson(Student obj)
         {
-            string pathString = @"D:\AsthaIT\StudentManagementSystem\StudentMgtSystem\students.json";
+            string pathString = "students.json";
             string fileName = "students.json";
             List<Student> lst = new List<Student>();
             string read = null;
 
 
             string x = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
-           // Console.WriteLine(x);
 
             var toAdd = "";
 
@@ -57,7 +55,6 @@ namespace StudentMgtSystem
                 read = r.ReadToEnd();
                 //Console.WriteLine("Reading :  "+read);
                 r.Close();
-                //Console.WriteLine("There is already a file");
                 if (read.Length > 2)
                 {
                     lst = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Student>>(read);
@@ -70,78 +67,26 @@ namespace StudentMgtSystem
                         }
                     }
                     toAdd = read.Substring(0 , read.Length - 1)  + "," + x + "]"; // string to be contatenated
-                    //Console.WriteLine(toAdd + " This is to be added");
                 }
                 else {
                     toAdd = read.Substring(0 , read.Length - 1) + x + "]"; // string to be contatenated
-                    //Console.WriteLine(toAdd + " This is to be added");
                 }
 
-                
-
-                //string data = File.ReadAllText(pathString);
-                //Console.WriteLine(data);
             }
 
-            Console.WriteLine("Adding " + toAdd);
+            //Console.WriteLine("Adding " + toAdd);
             StreamWriter fs = new StreamWriter(pathString);
             fs.Write(toAdd);
             fs.Close();
             
-            //if (!System.IO.File.Exists(pathString))
-            //{
-
-            //StreamWriter fs = new StreamWriter(pathString,true);
-            //lst.Add(obj);
-            //string myString = JsonConvert.SerializeObject(obj);
-            ////string myString = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
-            //fs.WriteLine(myString);
-            //fs.Close();
-
-
-            //}
-            //else
-            //{
-            //    StreamReader r = new StreamReader("file.json");
-            //    var read = r.ReadToEnd();
-            //    lst = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Student>>(read);
-            //    r.Close();
-            //}
-
             
-
-
-            //FileStream r_ = File.Create(pathString);
-            //byte[] bdata = Encoding.Default.GetBytes(toAdd);
-            //r_.Write(bdata, 0, bdata.Length);
-            //r_.Close();
-
-
-            //if (lst == null)
-            //{
-            //    List<Student> _data = new List<Student>();
-            //    _data.Add(obj);
-            //    String json = Newtonsoft.Json.JsonConvert.SerializeObject(_data.ToArray());
-            //    /*System.IO.File.WriteAllText("file.json", json);*/
-            //    StreamWriter sw = File.AppendText("file.json");
-            //    sw.WriteLine(json);
-            //}
-            //else
-            //{
-            //    lst.Add(obj);
-            //    String json = Newtonsoft.Json.JsonConvert.SerializeObject(lst);
-            //    //System.IO.File.WriteAllText("file.json", json);
-            //    StreamWriter sw = File.AppendText("file.json");
-            //    sw.WriteLine(json);
-
-            //}
         }
 
         public Student()
         {
 
         }
-        public Student(string id, string first, string middle, string last,int dep, int degree_)
+        public Student(string id, string first, string middle, string last,int dep, int degree_,string batch)
         {
             Student st = new Student();
             st.studentId = id;
@@ -150,6 +95,8 @@ namespace StudentMgtSystem
             st.lastName = last;
             st.depart = dep;
             st.deg = degree_;
+            st.joiningBatch = batch;
+            st.ListofSem = new Dictionary<Semester, List<Course>>();
             addToJson(st);
             allStudents.Add(st);
         }
@@ -184,13 +131,26 @@ namespace StudentMgtSystem
             get { return this.deg; }
             set { this.deg = value; }
         }
+
+        public string Batch
+        {
+            get { return this.joiningBatch; }
+            set { this.joiningBatch = value; }
+        }
         public degree Deg
         {
-            get { return (degree)deg; }
+            get { return (degree)this.deg; }
         }
         public dept Dep
         {
-            get { return (dept)depart; }
+            get { return (dept)this.depart; }
         }
+
+        public Dictionary<Semester, List<Course>> ListofSem
+        {
+            get { return this.semestersAttended; }
+            set { this.semestersAttended = value; }
+        }
+
     }
 }
