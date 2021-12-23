@@ -12,9 +12,9 @@ namespace StudentMgtSystem
 {
     class Student
     {
-        string firstName, middleName, lastName, studentId, joiningBatch;
+        private string firstName, middleName, lastName, studentId, joiningBatch;
 
-        int depart, deg;
+        private int depart, deg;
 
         public enum dept { 
             ComputerScience = 1,
@@ -31,7 +31,7 @@ namespace StudentMgtSystem
             MA
         }
 
-        Dictionary<Semester, List<Course>> semestersAttended;
+        Dictionary<string, List<Course>> semestersAttended;
 
 
         public static List<Student> allStudents = new List<Student>();
@@ -96,7 +96,7 @@ namespace StudentMgtSystem
             st.depart = dep;
             st.deg = degree_;
             st.joiningBatch = batch;
-            st.ListofSem = new Dictionary<Semester, List<Course>>();
+            st.ListofSem = new Dictionary<string, List<Course>>();
             addToJson(st);
             allStudents.Add(st);
         }
@@ -146,7 +146,7 @@ namespace StudentMgtSystem
             get { return (dept)this.depart; }
         }
 
-        public Dictionary<Semester, List<Course>> ListofSem
+        public Dictionary<string, List<Course>> ListofSem
         {
             get { return this.semestersAttended; }
             set { this.semestersAttended = value; }

@@ -8,16 +8,12 @@ namespace StudentMgtSystem
 {   
     class Semester
     {
-        string semCode, year;
+        private string semCode, year;
 
-        public Semester() { 
-        
-        }
 
         public Semester(string code, string yr) {
-            Semester s = new Semester();
-            s.semCode = code;
-            s.year = yr;
+            this.semCode = code;
+            this.year = yr;
         }
 
         public string SemCode

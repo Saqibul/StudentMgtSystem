@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 
 namespace StudentMgtSystem
-{
+{   
     class Program
     {
 
@@ -20,7 +20,7 @@ namespace StudentMgtSystem
             //Level myVar = (Level)Convert.ToInt32(abc);
             //Console.WriteLine(myVar);
 
-           
+
             LoadJson();
 
             Console.WriteLine("----------------------------------");
@@ -52,7 +52,8 @@ namespace StudentMgtSystem
                 deleteUser(id);
                 LoadJson();
             }
-            else if (firstChoice == "4") {
+            else if (firstChoice == "4")
+            {
                 Console.WriteLine("Please select the ID of the student you would like add a semester to");
                 string id = Console.ReadLine();
                 addSemester(id);
@@ -61,12 +62,6 @@ namespace StudentMgtSystem
             {
                 Console.WriteLine("Not a valid option!");
             }
-
-            Course c1 = new Course("CSE321","Operating Systems","ARF",3);
-            Course c2 = new Course("CSE221","Algorithms","MMM",3);
-            Course c3 = new Course("CSE421","Networking Systems","SKZ",3);
-
-            showCourses();
 
         }
 
@@ -85,14 +80,16 @@ namespace StudentMgtSystem
 
             Semester newSem = new Semester(semCode,semYear);//create semester object using the user inputs
             Console.WriteLine(newSem.SemCode + newSem.Year);
+            string semName = newSem.SemCode + " " + newSem.Year;
 
-            Dictionary<Semester, List<Course>> semCourseDict = s.ListofSem; // get the semester information of the student as a dictionary
+
+            Dictionary<string, List<Course>> semCourseDict = s.ListofSem; // get the semester information of the student as a dictionary
 
             List<Course> currentSemCourse = new List<Course>();// create an empty list for current semester course
 
-            if (semCourseDict.ContainsKey(newSem))
+            if (semCourseDict.ContainsKey(semName))
             {
-                currentSemCourse = semCourseDict[newSem];//if there are already existing courses in the semester, retrieve it
+                currentSemCourse = semCourseDict[semName];//if there are already existing courses in the semester, retrieve it
             }
 
             showCourses();
@@ -101,19 +98,28 @@ namespace StudentMgtSystem
             string code = Console.ReadLine();
 
             Course courseToAdd = getCourse(code);//get course to add to dictionary
-            if (currentSemCourse.Contains(courseToAdd))//check if the course already exists in the list
-            {
-                Console.WriteLine("The course is already enrolled");
-                return;
-            }
 
+            foreach (Course c in currentSemCourse) { 
+                if (c.CID == courseToAdd.CID)//check if the course already exists in the list
+                {
+                    Console.WriteLine("The course is already enrolled for " + newSem);
+                    return;
+                }
+            }
+            
+            
+
+            
             currentSemCourse.Add(courseToAdd);
             //semCourseDict[newSem] = currentSemCourse;
-            semCourseDict.Add(newSem,currentSemCourse);
+            semCourseDict.Add(semName,currentSemCourse);
             s.ListofSem = semCourseDict;
+            //update the student in JSON
 
-            foreach (KeyValuePair<Semester, List<Course>> entry in semCourseDict) {
-                Console.WriteLine("Course for " + entry.Key.SemCode + " are");
+            updateStudent(s);
+
+            foreach (KeyValuePair<string, List<Course>> entry in semCourseDict) {
+                Console.WriteLine("Courses for " + entry.Key + " are");
                 foreach (Course c in entry.Value) {
                     Console.WriteLine(c.CID + "(" + c.CName + ")");
                 } 
@@ -126,6 +132,42 @@ namespace StudentMgtSystem
 
         }
 
+        public static void updateStudent(Student obj) {
+            string pathString = "students.json";
+            string read = null;
+            List<Student> lst = new List<Student>();
+            string x = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+
+            string currentData = "";
+            if (System.IO.File.Exists(pathString)) // check if there is a students.json file.
+            {
+                StreamReader r = new StreamReader(pathString);
+                read = r.ReadToEnd();
+                //Console.WriteLine("Reading :  "+read);
+                r.Close();
+                if (read.Length > 2)
+                {
+                    lst = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Student>>(read);
+                    foreach (Student i in lst)
+                    {
+                        if (obj.ID == i.ID)
+                        {
+                            //update
+                            //rewrite existing json obj with x
+                            currentData = Newtonsoft.Json.JsonConvert.SerializeObject(i);
+                            break;
+                        }
+                    }
+                }
+
+            }
+            string newView = read.Replace(currentData,x);
+
+            StreamWriter fs = new StreamWriter(pathString);
+            fs.Write(newView);
+            fs.Close();
+
+        }
         public static Course? getCourse(string code)
         {
             string fileName = "courses.json";
@@ -141,7 +183,7 @@ namespace StudentMgtSystem
                     ls = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Course>>(read);
                     foreach (Course c in ls)
                     {
-                        if (c.CName == code) {
+                        if (c.CID == code) {
                             return c;
                         }
                     }
@@ -419,12 +461,12 @@ namespace StudentMgtSystem
 
         public static void showCoursesinSemester(Student s)
         {
-            Dictionary<Semester, List<Course>> c = s.ListofSem;
+            Dictionary<string, List<Course>> c = s.ListofSem;
 
 
-            foreach (KeyValuePair<Semester, List<Course>> entry in c)
+            foreach (KeyValuePair<string, List<Course>> entry in c)
             {
-                Console.WriteLine("The courses for " + entry.Key.SemCode + " are: ");
+                Console.WriteLine("The courses for " + entry.Key +  " are: ");
                 if(entry.Value != null)
                 {
                     foreach (Course ls in entry.Value) {
